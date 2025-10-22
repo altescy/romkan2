@@ -1,97 +1,118 @@
-# python-romkan
+# romkan2
 
-[![Build Status](https://api.travis-ci.org/soimort/python-romkan.png)](https://travis-ci.org/soimort/python-romkan) [![PyPI version](https://badge.fury.io/py/romkan.png)](http://badge.fury.io/py/romkan)
+**romkan2** is a modernized, actively maintained fork of [python-romkan](https://github.com/soimort/python-romkan), designed as a **drop-in replacement** for the original library.
 
-[python-romkan](https://github.com/soimort/python-romkan) is a Romaji/Kana conversion library for Python, which is used to convert a Japanese Romaji (ローマ字) string to a Japanese Kana (仮名) string or vice versa.
+This is a Romaji/Kana conversion library for Python, which is used to convert a Japanese Romaji (ローマ字) string to a Japanese Kana (仮名) string or vice versa.
 
-It is the Pythonic port of [Ruby/Romkan](http://0xcc.net/ruby-romkan/index.html.en), originally authored by Satoru Takabayashi and [ported](http://lilyx.net/python-romkan/) by Masato Hagiwara.
+## Why romkan2?
 
-[python-romkan](https://github.com/soimort/python-romkan) works on Python 2 and Python 3 (fully tested on __Python 2.6__, __2.7__, __3.2__, __3.3__ and __PyPy__). It handles both Katakana (片仮名) and Hiragana (平仮名) with the Hepburn (ヘボン式) romanization system, as well as the modern Kunrei-shiki (訓令式) romanization system.
+The original [python-romkan](https://github.com/soimort/python-romkan) by Mort Yao has not been actively maintained in recent years. This fork aims to:
 
-Project homepage: <http://www.soimort.org/python-romkan>
+- Support modern Python versions (3.9+)
+- Modernize the codebase with type hints and improved code structure
+- Use contemporary Python packaging standards (pyproject.toml)
+- Maintain full backward compatibility as a drop-in replacement
 
-Fork me on GitHub: <https://github.com/soimort/python-romkan>
+## Heritage
+
+This library is the Pythonic port of [Ruby/Romkan](http://0xcc.net/ruby-romkan/index.html.en), originally authored by Satoru Takabayashi and [ported](http://lilyx.net/python-romkan/) by Masato Hagiwara, then modernized by Mort Yao.
+
+romkan2 handles both Katakana (片仮名) and Hiragana (平仮名) with the Hepburn (ヘボン式) romanization system, as well as the modern Kunrei-shiki (訓令式) romanization system.
 
 
 
 ## Installation
 
-### 1. Install via [Pip](http://www.pip-installer.org/):
+Install via pip:
 
-    $ pip install romkan
-    
-### 2. Install via [EasyInstall](http://pypi.python.org/pypi/setuptools):
+```bash
+pip install romkan2
+```
 
-    $ easy_install romkan
-    
-### 3. Install from Git:
+Or install from source:
 
-    $ git clone git://github.com/soimort/python-romkan.git
-    $ python setup.py install
+```bash
+git clone https://github.com/altescy/romkan2.git
+cd romkan2
+pip install -e .
 
+
+```
 
 ## Usage
 
-Python 3.x:
+```python
+import romkan
 
-    $ python
-    >>> import romkan
-    >>> print(romkan.to_roma("にんじゃ"))
-    ninja
-    >>> print(romkan.to_hepburn("にんじゃ"))
-    ninja
-    >>> print(romkan.to_kunrei("にんじゃ"))
-    ninzya
-    >>> print(romkan.to_hiragana("ninja"))
-    にんじゃ
-    >>> print(romkan.to_katakana("ninja"))
-    ニンジャ
+# Convert Kana to Romaji
+print(romkan.to_roma("にんじゃ"))
+# => ninja
 
-Python 2.x:
+print(romkan.to_hepburn("にんじゃ"))
+# => ninja
 
-    $ python2
-    >>> import romkan
-    >>> print romkan.to_roma(u"にんじゃ")
-    ninja
-    >>> print romkan.to_hepburn(u"にんじゃ")
-    ninja
-    >>> print romkan.to_kunrei(u"にんじゃ")
-    ninzya
-    >>> print romkan.to_hiragana("ninja")
-    にんじゃ
-    >>> print romkan.to_katakana("ninja")
-    ニンジャ
+print(romkan.to_kunrei("にんじゃ"))
+# => ninzya
+
+# Convert Romaji to Kana
+print(romkan.to_hiragana("ninja"))
+# => にんじゃ
+
+print(romkan.to_katakana("ninja"))
+# => ニンジャ
+```
 
 
 
 ## API Reference
 
-* __to_katakana(string)__
+### `to_katakana(string: str) -> str`
 
 Convert a Romaji (ローマ字) to a Katakana (片仮名).
 
-* __to_hiragana(string)__
+### `to_hiragana(string: str) -> str`
 
 Convert a Romaji (ローマ字) to a Hiragana (平仮名).
 
-* __to_kana(string)__
+### `to_kana(string: str) -> str`
 
-Convert a Romaji (ローマ字) to a Katakana (片仮名). (same as _to\_katakana_)
+Convert a Romaji (ローマ字) to a Katakana (片仮名). (same as `to_katakana`)
 
-* __to_hepburn(string)__
+### `to_hepburn(string: str) -> str`
 
 Convert a Kana (仮名) or a Kunrei-shiki Romaji (訓令式ローマ字) to a Hepburn Romaji (ヘボン式ローマ字).
 
-* __to_kunrei(string)__
+### `to_kunrei(string: str) -> str`
 
 Convert a Kana (仮名) or a Hepburn Romaji (ヘボン式ローマ字) to a Kunrei-shiki Romaji (訓令式ローマ字).
 
-* __to_roma(string)__
+### `to_roma(string: str) -> str`
 
 Convert a Kana (仮名) to a Hepburn Romaji (ヘボン式ローマ字).
 
 
 
+## Migration from python-romkan
+
+romkan2 is a drop-in replacement for python-romkan. Simply replace:
+
+```python
+# Old
+import romkan
+
+# New
+import romkan2 as romkan
+```
+
+The package name is different (`romkan2`), but the module name remains `romkan` for full backward compatibility.
+
 ## License
 
-[python-romkan](https://github.com/soimort/python-romkan) is licensed under the [BSD license](https://raw.github.com/soimort/python-romkan/master/LICENSE).
+romkan2 is licensed under the [BSD license](LICENSE).
+
+## Credits
+
+- Original Ruby/Romkan: [Satoru Takabayashi](http://0xcc.net/ruby-romkan/index.html.en)
+- Python port: [Masato Hagiwara](http://lilyx.net/python-romkan/)
+- python-romkan: [Mort Yao](https://github.com/soimort/python-romkan)
+- romkan2 (this fork): [Yasuhiro Yamaguchi](https://github.com/altescy)
