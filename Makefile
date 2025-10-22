@@ -1,33 +1,42 @@
-SETUP = ./setup.py
+PWD        := $(shell pwd)
+PYTHON     := uv run python
+RUFF       := uv run ruff
+PYRIGHT    := uv run pyright
+MODULE     := romkan2
+MODULE_DIR := $(PWD)/src/$(MODULE)
 
-.PHONY: default clean build sdist bdist bdist_egg install release
+.PHONY: all
+all: format lint test
 
-default: build sdist bdist bdist_egg
-
+.PHONY: test
 test:
-	$(SETUP) test
+	PYTHONPATH=$(PWD) $(PYTHON) -m unittest discover -s tests
 
-clean:
-	zenity --question
-	rm -fr build/ dist/ src/*.egg-info/
-	find . | grep __pycache__ | xargs rm -fr
-	find . | grep .pyc | xargs rm -fr
+.PHONY: lint
+lint:
+	PYTHONPATH=$(PWD) $(RUFF) check
+	PYTHONPATH=$(PWD) $(PYRIGHT)
 
-build:
-	$(SETUP) build
+.PHONY: format
+format:
+	PYTHONPATH=$(PWD) $(RUFF) check --select I --fix
+	PYTHONPATH=$(PWD) $(RUFF) format
 
-sdist:
-	$(SETUP) sdist
+.PHONY: clean
+clean: clean-pyc clean-build
 
-bdist:
-	$(SETUP) bdist
+.PHONY: clean-pyc
+clean-pyc:
+	rm -rf .pytest_cache
+	rm -rf .mypy_cache
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
 
-bdist_egg:
-	$(SETUP) bdist_egg
-
-install: bdist_egg
-	sudo $(SETUP) install
-
-release:
-	zenity --question
-	$(SETUP) sdist bdist_egg upload
+.PHONY: clean-build
+clean-build:
+	rm -rf build/
+	rm -rf dist/
+	rm -rf $(MODULE).egg-info/
+	rm -rf pip-wheel-metadata/
