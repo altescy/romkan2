@@ -8,6 +8,8 @@ from ._constants import (
     HEPBURNTAB_H,
     KUNREITAB,
     KUNREITAB_H,
+    SPECIALS_HIRA,
+    SPECIALS_KATA,
     UNNCCESSARY_APOSTROPHES,
     VOWELS,
 )
@@ -75,7 +77,7 @@ TO_HEPBURN: Final[Mapping[str, str]]
 ) = romkan_from_table(
     kunrei_table=KUNREITAB,
     hepburn_table=HEPBURNTAB,
-    specials=(("du", "ヅ"), ("di", "ヂ"), ("fu", "フ"), ("ti", "チ"), ("wi", "ウィ"), ("we", "ウェ"), ("wo", "ヲ")),
+    specials=SPECIALS_KATA,
 )
 
 ROMKAN_H: Final[Mapping[str, str]]
@@ -98,7 +100,7 @@ TO_KUNREI_H: Final[Mapping[str, str]]
 ) = romkan_from_table(
     kunrei_table=KUNREITAB_H,
     hepburn_table=HEPBURNTAB_H,
-    specials=(("du", "づ"), ("di", "ぢ"), ("fu", "ふ"), ("ti", "ち"), ("wi", "うぃ"), ("we", "うぇ"), ("wo", "を")),
+    specials=SPECIALS_HIRA,
 )
 
 
