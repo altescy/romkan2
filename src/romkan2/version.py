@@ -1,3 +1,3 @@
-#!/usr/bin/env python
+from importlib.metadata import version
 
-__version__ = '0.2.1'
+__version__ = version("romkan2")
