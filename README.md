@@ -42,23 +42,23 @@ pip install -e .
 ## Usage
 
 ```python
-import romkan
+import romkan2
 
 # Convert Kana to Romaji
-print(romkan.to_roma("にんじゃ"))
+print(romkan2.to_roma("にんじゃ"))
 # => ninja
 
-print(romkan.to_hepburn("にんじゃ"))
+print(romkan2.to_hepburn("にんじゃ"))
 # => ninja
 
-print(romkan.to_kunrei("にんじゃ"))
+print(romkan2.to_kunrei("にんじゃ"))
 # => ninzya
 
 # Convert Romaji to Kana
-print(romkan.to_hiragana("ninja"))
+print(romkan2.to_hiragana("ninja"))
 # => にんじゃ
 
-print(romkan.to_katakana("ninja"))
+print(romkan2.to_katakana("ninja"))
 # => ニンジャ
 ```
 
@@ -103,8 +103,6 @@ import romkan
 # New
 import romkan2 as romkan
 ```
-
-The package name is different (`romkan2`), but the module name remains `romkan` for full backward compatibility.
 
 ## License
 
