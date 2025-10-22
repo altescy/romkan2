@@ -48,9 +48,6 @@ def romkan_from_table(
         romkan[roma] = kana
 
     # special modification
-    # wo -> ヲ, but ヲ/ウォ -> wo
-    # du -> ヅ, but ヅ/ドゥ -> du
-    # we -> ウェ, ウェ -> we
     romkan.update(specials)
 
     # Sort in long order so that a longer Romaji sequence precedes.
